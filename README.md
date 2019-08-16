@@ -14,7 +14,7 @@
 docker-compose up -d
 ```
 
-## Author
+## Authors
 
 👤 **EdinTC & Jensderond**
 
@@ -23,7 +23,7 @@ docker-compose up -d
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/EdinTC/Checq/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check the [issues page](https://github.com/EdinTC/Checq/issues).
 
 ## Show your support
 
