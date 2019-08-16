@@ -69,8 +69,3 @@ func QueryNS(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 }
-
-// nameserver, _ := net.LookupNS("facebook.com")
-// for _, ns := range nameserver {
-// 	fmt.Println(ns)
-// }
