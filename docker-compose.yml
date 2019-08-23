@@ -7,7 +7,7 @@ services:
       args:
         app_env: ${APP_ENV} # TODO: Define this in 1 place
     volumes:
-      - ./api:/go/src/github.com/edintc/checq/api
+      - ./api:/go/src/github.com/EdinTC/Checq/api
     ports:
       - "5000:8080"
 
