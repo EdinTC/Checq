@@ -9,7 +9,7 @@ services:
     volumes:
       - ./api:/go/src/github.com/edintc/checq/api
     ports:
-      - "5000:8000"
+      - "5000:8080"
 
   frontend: # TODO: Decide on what frontend to use
     build:
