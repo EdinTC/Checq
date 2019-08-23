@@ -2,17 +2,13 @@ package utils
 
 import (
 	"net"
-	"net/http"
 	"strings"
-
-	"github.com/gin-gonic/gin"
 )
 
 //
-// QueryIPAdress queries the given domain name for IP records
+// GetIPAdress queries the given domain name for IP records
 //
-func QueryIPAdress(c *gin.Context) {
-	name := c.Param("name")
+func GetIPAdress(name string) []string {
 	res, err := net.LookupIP(name)
 
 	var results []string
@@ -23,18 +19,36 @@ func QueryIPAdress(c *gin.Context) {
 	}
 
 	if err == nil {
-		c.JSON(http.StatusOK, gin.H{"body": results})
-	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return results
 	}
+	return nil
+}
+
+//
+// QueryIPAdress queries the given domain name for IP records
+//
+func QueryIPAdress(name string) []string {
+	res, err := net.LookupIP(name)
+
+	var results []string
+	for _, ip := range res {
+		if !stringInSlice(ip.String(), results) {
+			results = append(results, ip.String())
+		}
+	}
+
+	if err == nil {
+		return results
+	}
+	return nil
 }
 
 //
 // QueryTXT queries the given domain name for txt records.
 // When www is given as a subdomain it is removed
 //
-func QueryTXT(c *gin.Context) {
-	name := strings.TrimLeft(c.Param("name"), "www.")
+func QueryTXT(name string) []string {
+	name = strings.TrimLeft(name, "www.")
 	res, err := net.LookupTXT(name)
 
 	var results []string
@@ -45,17 +59,18 @@ func QueryTXT(c *gin.Context) {
 	}
 
 	if err == nil {
-		c.JSON(http.StatusOK, gin.H{"body": results})
-	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return results
 	}
+	return nil
 }
 
 //
 // QueryNS queries the given domain name for nameserver records.
 //
-func QueryNS(c *gin.Context) {
-	name := strings.TrimLeft(c.Param("name"), "www.")
+func QueryNS(name string) []string {
+	name = strings.TrimLeft(name, "www.")
+	// test := strings.Split(name, ".")
+	// fmt.Println(test)
 	res, err := net.LookupNS(name)
 
 	var results []string
@@ -64,8 +79,23 @@ func QueryNS(c *gin.Context) {
 	}
 
 	if err == nil {
-		c.JSON(http.StatusOK, gin.H{"body": results})
-	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return results
 	}
+	return nil
+}
+
+//
+// QueryHostname queries the given domain name for nameserver records.
+//
+func QueryHostname(name string) string {
+	ip := QueryIPAdress(name)
+	if ip != nil {
+		res, err := net.LookupAddr(ip[0])
+
+		if err == nil {
+			return res[0]
+		}
+	}
+	return ""
+
 }
