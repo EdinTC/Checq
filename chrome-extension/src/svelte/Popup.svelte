@@ -83,7 +83,7 @@ div.loader {
         <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
           List of IP records:
         </h2>
-        <ul class="list-none mb-6 list-inside ml-4">
+        <ul class="list-none mb-6 list-inside">
           {#each data.ip as ip}
             <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ip}</pre>
           {/each}
@@ -94,7 +94,7 @@ div.loader {
         <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
           List of NS records:
         </h2>
-        <ul class="list-none mb-6 list-inside ml-4">
+        <ul class="list-none mb-6 list-inside">
           {#each data.ns as ns}
             <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ns}</pre>
           {/each}
@@ -103,7 +103,7 @@ div.loader {
 
       {#if data.hostname !== undefined}
         <h2 class="font-sans text-xl text-green-600 font-bold mb-2">Hostname:</h2>
-        <ul class="list-none mb-6 list-inside ml-4">
+        <ul class="list-none mb-6 list-inside">
           <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{data.hostname}</pre>
         </ul>
       {/if}
@@ -112,7 +112,7 @@ div.loader {
         <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
           List of TXT records:
         </h2>
-        <ul class="list-none mb-6 list-inside ml-4">
+        <ul class="list-none mb-6 list-inside">
           {#each data.txt as txt}
             <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3 text-xs">{txt}</pre>
           {/each}
