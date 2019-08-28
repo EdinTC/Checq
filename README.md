@@ -2,7 +2,7 @@
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/EdinTC/Checq/blob/master/LICENSE">
-    <img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL-3.0-yellow.svg" target="_blank" />
+    <img alt="License: GPL-3.0" src="https://img.shields.io/badge/license-GPL-yellow.svg" target="_blank" />
   </a>
 </p>
 
