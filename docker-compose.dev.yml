@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: ./api
+      args:
+        app_env: ${APP_ENV} # TODO: Define this in 1 place
+    restart: always
+    volumes:
+      - ./api:/go/src/github.com/EdinTC/Checq/api
+    ports:
+      - "1337:1337"
+
+#  frontend: TODO: Create build image for development.
+#    build:
+#      context: ./frontend
+#      args:
+#        app_env: ${APP_ENV} # TODO: Define this in 1 place
+#    restart: always
+#    volumes:
+#      - ./frontend/public:/frontend/public
