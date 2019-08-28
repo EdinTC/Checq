@@ -109,7 +109,7 @@
         </h2>
         <ul class="list-none mb-6 list-inside ml-4">
           {#each data.ip as ip}
-            <pre class="whitespace-no-wrap bg-gray-200 overflow-x-auto p-3 mb-3">{ip}</pre>
+            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ip}</pre>
           {/each}
         </ul>
       {/if}
@@ -120,7 +120,7 @@
         </h2>
         <ul class="list-none mb-6 list-inside ml-4">
           {#each data.ns as ns}
-            <pre class="whitespace-no-wrap bg-gray-200 overflow-x-auto p-3 mb-3">{ns}</pre>
+            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ns}</pre>
           {/each}
         </ul>
       {/if}
@@ -128,7 +128,7 @@
       {#if data.hostname !== undefined}
         <h2 class="font-sans text-xl text-green-600 font-bold mb-2">Hostname:</h2>
         <ul class="list-none mb-6 list-inside ml-4">
-          <pre class="whitespace-no-wrap bg-gray-200 overflow-x-auto p-3 mb-3">{data.hostname}</pre>
+          <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{data.hostname}</pre>
         </ul>
       {/if}
 
@@ -138,7 +138,7 @@
         </h2>
         <ul class="list-none mb-6 list-inside ml-4">
           {#each data.txt as txt}
-            <pre class="whitespace-no-wrap bg-gray-200 overflow-x-auto p-3 mb-3">{txt}</pre>
+            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{txt}</pre>
           {/each}
         </ul>
       {/if}

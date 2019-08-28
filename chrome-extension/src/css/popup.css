@@ -709,6 +709,10 @@ canvas {
   white-space: nowrap;
 }
 
+.whitespace-normal {
+  white-space: normal;
+}
+
 .w-full {
   width: 100%;
 }

@@ -1,4 +1,3 @@
-
 import purgeCss from '@fullhuman/postcss-purgecss'
 import autoprefixer from 'autoprefixer'
 import postcssImport from 'postcss-import'
@@ -45,7 +44,6 @@ export default {
 		}),
 		resolve({
 			browser: true,
-			// dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/')
 		}),
 		commonjs(),
 		!production && livereload('public'),
