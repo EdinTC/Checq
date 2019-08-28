@@ -1,4 +1,4 @@
-FROM golang:1.12-alpine
+FROM golang:1.12-alpine AS builder
 
 # To fix go get and build with cgo.
 RUN apk add --no-cache --virtual .build-deps \
@@ -19,16 +19,19 @@ WORKDIR /go/src/github.com/EdinTC/Checq/api
 
 
 RUN go get ./
-RUN go build
+RUN CGO_ENABLED=0 go build -o checq-api .
 
 # When building for development pilu/fresh will be used for code reloading via a shared volume.
 # When building for production the code will be built as binary.
-CMD if [ ${APP_ENV} = production ]; \
+CMD if [ ${APP_ENV} = development ]; \
 	then \
-	api; \
-	else \
 	go get github.com/pilu/fresh && \
 	fresh; \
 	fi
 
+FROM scratch
+
+COPY --from=builder /go/src/github.com/EdinTC/Checq/api/checq-api .
+
 EXPOSE 1337
+CMD ['./checq-api']

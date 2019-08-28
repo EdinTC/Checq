@@ -1,22 +1,54 @@
 version: '3.7'
 
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
 services:
+  traefik:
+    image: traefik
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './.docker/traefik.toml:/traefik.toml'
+      - './.docker/acme.json:/acme.json'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
+    networks:
+      - web
+    labels:
+      - traefik.frontend.rule=Host:traefik.checq.intercube.io
+      - traefik.port=8080
+
   api:
-    build:
-      context: ./api
-      args:
-        app_env: ${APP_ENV} # TODO: Define this in 1 place
+    image: edintc/checq-api:latest
     restart: always
     volumes:
       - ./api:/go/src/github.com/EdinTC/Checq/api
     ports:
-      - "1337:1337"
+      - '1337:1337'
+    networks:
+      - internal
+    labels:
+      - traefik.backend=API
 
-#  frontend: TODO: Create build image for development.
-#    build:
-#      context: ./frontend
-#      args:
-#        app_env: ${APP_ENV} # TODO: Define this in 1 place
-#    restart: always
-#    volumes:
-#      - ./frontend/public:/frontend/public
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        app_env: 'production' # TODO: Define this in 1 place
+    restart: always
+    volumes:
+      - ./frontend/public:/frontend/public
+    networks:
+      - internal
+      - web
+    labels:
+      - traefik.backend=Frontend
+      - traefik.frontend.rule=Host:checq.intercube.io
+      - traefik.docker.network=web
+      - traefik.port=80

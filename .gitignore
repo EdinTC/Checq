@@ -12,3 +12,4 @@
 *.out
 
 api/tmp
+traefik.toml
