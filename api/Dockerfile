@@ -34,4 +34,5 @@ FROM scratch
 COPY --from=builder /go/src/github.com/EdinTC/Checq/api/checq-api .
 
 EXPOSE 1337
-CMD ['./checq-api']
+
+CMD ["./checq-api"]
