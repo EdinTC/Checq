@@ -8,6 +8,8 @@
 
 > This API retrieves the IP and DNS information for the given Domain/IP. Written in Golang and (FE PACKAGE)
 
+![Checq screenshot](screenshot.png)
+
 ## Installation & Usage
 
 ```sh
