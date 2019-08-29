@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> This API retrieves the IP and DNS information for the given Domain/IP. Written in Golang and (FE PACKAGE)
+> This API retrieves the IP and DNS information for the given Domain/IP. Written in Golang and Svelte
 
 ![Checq screenshot](screenshot.png)
 
