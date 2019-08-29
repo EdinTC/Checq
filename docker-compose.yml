@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 networks:
   web:
@@ -11,13 +11,13 @@ services:
     image: traefik
     restart: always
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - './.docker/traefik.toml:/traefik.toml'
-      - './.docker/acme.json:/acme.json'
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./.docker/traefik.toml:/traefik.toml"
+      - "./.docker/acme.json:/acme.json"
     ports:
-      - '80:80'
-      - '443:443'
-      - '8080:8080'
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
     networks:
       - web
     labels:
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./api:/go/src/github.com/EdinTC/Checq/api
     ports:
-      - '1337:1337'
+      - "1337:1337"
     networks:
       - internal
     labels:
@@ -40,7 +40,7 @@ services:
     build:
       context: ./frontend
       args:
-        app_env: 'production' # TODO: Define this in 1 place
+        app_env: "production" # TODO: Define this in 1 place
     restart: always
     volumes:
       - ./frontend/public:/frontend/public
