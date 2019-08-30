@@ -1,0 +1,22 @@
+name: Build and Publish frontend image
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Build the frontend image
+      run: docker build -f frontend/Dockerfile --tag edintc/checq-frontend:$(date +%s) frontend/.
+
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: edintc/checq-frontend:$(date +%s)
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
