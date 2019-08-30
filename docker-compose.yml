@@ -36,8 +36,9 @@ services:
       - web
     labels:
       - traefik.backend=API
-      - traefik.frontend.rule=Host:checq.intercube.io
+      - traefik.frontend.rule=Host:api.checq.intercube.io
       - traefik.docker.network=web
+      - traefik.port=1337
 
   frontend:
     image: edintc/checq-frontend:latest
