@@ -33,8 +33,12 @@ services:
       - "1337:1337"
     networks:
       - internal
+      - web
     labels:
       - traefik.backend=API
+      - traefik.frontend.rule=Host:api.checq.intercube.io
+      - traefik.docker.network=web
+      - traefik.port=1337
 
   frontend:
     image: edintc/checq-frontend:latest

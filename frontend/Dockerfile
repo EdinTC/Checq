@@ -13,9 +13,6 @@ COPY ./ ./
 RUN npm install
 RUN npm run build
 
-RUN pwd
-RUN ls -lah
-RUN ls -lah public/
 RUN rm /frontend/public/bundle.css.map
 
 FROM nginx:alpine
