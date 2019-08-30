@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   let promise;
-  const apiUrl = "https ://api.checq.intercube.io";
+  const apiUrl = "https://api.checq.intercube.io";
   let hostname = "";
 
   onMount(async () => {
