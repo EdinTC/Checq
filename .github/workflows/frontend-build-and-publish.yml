@@ -30,10 +30,7 @@ jobs:
 
 
     - name: D) Push docker images to registry
-      uses: actions/docker/login@master
-      env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
+        cat ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
         docker push $(cat TAG_FRONTEND_LATEST)
         docker push $(cat TAG_API_LATEST)
