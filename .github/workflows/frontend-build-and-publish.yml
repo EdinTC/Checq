@@ -30,6 +30,6 @@ jobs:
 
     - name: D) Push docker images to registry
       run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username $(cat DOCKERHUB_USER) --password-stdin
+        docker login --username $(cat DOCKERHUB_USER) -p ${{ secrets.DOCKER_PASSWORD }}
         docker push $(cat TAG_FRONTEND_LATEST)
         docker push $(cat TAG_API_LATEST)
