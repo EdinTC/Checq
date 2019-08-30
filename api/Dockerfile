@@ -23,7 +23,7 @@ RUN CGO_ENABLED=0 go build -o checq-api .
 
 # When building for development pilu/fresh will be used for code reloading via a shared volume.
 # When building for production the code will be built as binary.
-CMD if [ ${APP_ENV} = development ]; \
+RUN if [ ${APP_ENV} = development ]; \
 	then \
 	go get github.com/pilu/fresh && \
 	fresh; \
