@@ -31,6 +31,6 @@ jobs:
 
     - name: D) Push docker images to registry
       run: |
-        docker login -u ${{ DOCKER_USERNAME }} -p ${{ DOCKER_PASSWORD }}
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker push $(cat TAG_FRONTEND_LATEST)
         docker push $(cat TAG_API_LATEST)
