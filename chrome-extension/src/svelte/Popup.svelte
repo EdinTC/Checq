@@ -1,6 +1,6 @@
 <script>
 	let promise;
-	const apiUrl = 'http://api.checq.intercube.io:1337'
+	const apiUrl = 'https://api.checq.intercube.io:1337'
 	let hostname = '';
 
 	async function fetchDomain () {
