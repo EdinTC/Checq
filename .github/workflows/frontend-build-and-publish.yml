@@ -28,8 +28,12 @@ jobs:
         docker build -f frontend/Dockerfile --tag $(cat TAG_FRONTEND_LATEST) frontend/.
         docker build -f api/Dockerfile --tag $(cat TAG_API_LATEST) api/.
 
+
     - name: D) Push docker images to registry
+      uses: actions/docker/login@master
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
-        docker login --username $(cat DOCKERHUB_USER) -p ${{ secrets.DOCKER_PASSWORD }}
         docker push $(cat TAG_FRONTEND_LATEST)
         docker push $(cat TAG_API_LATEST)
