@@ -17,7 +17,7 @@ jobs:
         docker build -f api/Dockerfile -t $(cat DOCKERHUB_USER)/checq-api api/.
 
     - name: B) Push docker images to registry
-        run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username $(cat DOCKERHUB_USER) --password-stdin
-          docker push $(cat DOCKERHUB_USER)/checq-frontend
-          docker push $(cat DOCKERHUB_USER)/checq-api
+      run: |
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username $(cat DOCKERHUB_USER) --password-stdin
+        docker push $(cat DOCKERHUB_USER)/checq-frontend
+        docker push $(cat DOCKERHUB_USER)/checq-api
