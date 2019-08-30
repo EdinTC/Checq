@@ -37,10 +37,7 @@ services:
       - traefik.backend=API
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        app_env: "production" # TODO: Define this in 1 place
+    image: edintc/checq-frontend:latest
     restart: always
     volumes:
       - ./frontend/public:/frontend/public
