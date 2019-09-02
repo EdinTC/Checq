@@ -1,6 +1,6 @@
 {
   "name": "checq-app",
-  "version": "0.0.",
+  "version": "0.0.1",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^1.2.0",
     "autoprefixer": "^9.6.1",

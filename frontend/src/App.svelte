@@ -1,13 +1,15 @@
 <script>
   import { onMount } from 'svelte';
-  let promise;
+  import Results from "./Results.svelte";
+
+  export let promise;
   const apiUrl = "https://api.checq.intercube.io";
   let hostname = "";
 
   onMount(async () => {
     promise = fetchDomain();
-	});
-
+  });
+  
   async function fetchDomain() {
     if (hostname === "") return;
     const response = await fetch(`${apiUrl}/${hostname}`, { mode: "cors" });
@@ -23,6 +25,51 @@
     promise = fetchDomain();
   }
 </script>
+
+<div class="flex mb-4">
+  <div class="container mx-auto p-4 text-center">
+    <h1 class="font-sans text-2xl font-bold">🔍 Checq</h1>
+  </div>
+</div>
+<div class="flex mb-4 container mx-auto ">
+  <form 
+    class="w-full max-w-sm mx-auto" 
+    on:submit|preventDefault={handleClick}
+    >
+    <div class="flex items-center border-b border-b-2 border-green-400 py-2">
+      <input
+        class="appearance-none bg-transparent border-none w-full text-gray-700
+        mr-3 py-1 px-2 leading-tight focus:outline-none"
+        bind:value={hostname}
+        type="text" 
+        placeholder="www.google.com"
+        role="searchbox"
+        aria-label="Full name" />
+      <button
+        class="flex-shrink-0 bg-green-700 hover:bg-green-800 border-green-700
+        hover:border-green-800 text-md border-4 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline focus:border-transparent"
+        on:click={handleClick}
+        type="button"
+        role="button"
+        >
+        Checq now
+      </button>
+    </div>
+    <small class="text-xs">Enter a valid domainname or IP address</small>
+  </form>
+</div>
+
+<div class="container mx-auto px-4 pl-2">
+  {#await promise}
+    <div class="flex justify-center mt-12">
+      <div class="loader"></div>
+    </div>
+  {:then data}
+    <Results {data}/>
+  {:catch error}
+    <p style="color: red">{error.message}</p>
+  {/await}
+</div>
 
 <style lang="postcss">
   @import "tailwindcss/base";
@@ -68,82 +115,3 @@
     }
   }
 </style>
-
-<div class="flex mb-4">
-  <div class="container mx-auto p-4 text-center">
-    <h1 class="font-sans text-2xl font-bold">🏁 ~ Checq ~ 🏁</h1>
-  </div>
-</div>
-<div class="flex mb-4 container mx-auto ">
-  <form class="w-full max-w-sm mx-auto" on:submit|preventDefault={handleClick}>
-    <div class="flex items-center border-b border-b-2 border-green-400 py-2">
-      <input
-        class="appearance-none bg-transparent border-none w-full text-gray-700
-        mr-3 py-1 px-2 leading-tight focus:outline-none"
-        bind:value={hostname}
-        type="text" 
-        placeholder="www.google.com"
-        aria-label="Full name" />
-      <button
-        class="flex-shrink-0 bg-green-400 hover:bg-green-500 border-green-400
-        hover:border-green-500 text-sm border-4 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline focus:border-transparent"
-        on:click={handleClick}
-        type="button">
-        Checq now
-      </button>
-    </div>
-    <small class="text-xs">Enter a valid domainname or IP address</small>
-  </form>
-</div>
-
-<div class="container mx-auto px-4 pl-2">
-  {#await promise}
-    <div class="flex justify-center mt-12">
-      <div class="loader"></div>
-    </div>
-  {:then data}
-    {#if data !== undefined}
-      {#if data.ip !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
-          List of IP records:
-        </h2>
-        <ul class="list-none mb-6 list-inside">
-          {#each data.ip as ip}
-            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ip}</pre>
-          {/each}
-        </ul>
-      {/if}
-
-      {#if data.ns !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
-          List of NS records:
-        </h2>
-        <ul class="list-none mb-6 list-inside">
-          {#each data.ns as ns}
-            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ns}</pre>
-          {/each}
-        </ul>
-      {/if}
-
-      {#if data.hostname !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">Hostname:</h2>
-        <ul class="list-none mb-6 list-inside">
-          <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{data.hostname}</pre>
-        </ul>
-      {/if}
-
-      {#if data.txt !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
-          List of TXT records:
-        </h2>
-        <ul class="list-none mb-6 list-inside">
-          {#each data.txt as txt}
-            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{txt}</pre>
-          {/each}
-        </ul>
-      {/if}
-    {/if}
-  {:catch error}
-    <p style="color: red">{error.message}</p>
-  {/await}
-</div>
