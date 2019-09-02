@@ -20,7 +20,7 @@
     "svelte": "^3.9.1",
     "svelte-loader": "^2.13.6",
     "terser-webpack-plugin": "^1.4.1",
-    "webpack": "4.39.2",
+    "webpack": "4.39.3",
     "webpack-dev-server": "3.8.0",
     "write-file-webpack-plugin": "4.5.1"
   }
