@@ -30,6 +30,7 @@ func QueryHandler(c *gin.Context) {
 	ns := utils.QueryNS(name)
 	hn := utils.QueryHostname(name)
 
+	// TODO: Better error handling...
 	if ip != nil {
 		c.JSON(http.StatusOK, Response{
 			IP:       ip,
