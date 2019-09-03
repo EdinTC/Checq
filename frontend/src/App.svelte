@@ -10,8 +10,28 @@
     promise = fetchDomain();
   });
   
+  function extractHostname(url) {
+    let hostname;
+
+    //find & remove protocol (http, ftp, etc.) and get hostname
+    if (url.indexOf("//") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+  }
+
   async function fetchDomain() {
     if (hostname === "") return;
+    hostname = extractHostname(hostname);
     const response = await fetch(`${apiUrl}/${hostname}`, { mode: "cors" });
     const json = await response.json();
     if (response.ok) {
