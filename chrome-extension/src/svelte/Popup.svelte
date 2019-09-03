@@ -1,4 +1,5 @@
 <script>
+  import Results from "./Results.svelte";
 	let promise;
 	const apiUrl = 'https://api.checq.intercube.io'
 	let hostname = '';
@@ -22,12 +23,29 @@
 	});
 </script>
 
-<style>
+<div class="flex mb-4">
+  <div class="container mx-auto p-4 text-center">
+    <h1 class="font-sans text-2xl font-bold">🔍 Checq</h1>
+  </div>
+</div>
+<div class="container mx-auto px-4 pl-2">
+  {#await promise}
+    <div class="flex justify-center mt-12">
+      <div class="loader"></div>
+    </div>
+  {:then data}
+    <Results {data}/>
+  {:catch error}
+    <p style="color: red">{error.message}</p>
+  {/await}
+</div>
 
-pre {
-  margin-right: .50rem; 
-}
-div.loader {
+<style lang="postcss">
+  @import "tailwindcss/base";
+  @import "tailwindcss/components";
+  @import "tailwindcss/utilities";
+
+  div.loader {
     position: relative;
     width: 2em;
     height: 2em;
@@ -66,60 +84,3 @@ div.loader {
     }
   }
 </style>
-
-<div class="flex mb-4">
-  <div class="container mx-auto p-4 text-center">
-    <h1 class="font-sans text-2xl font-bold">🏁 ~ Checq ~ 🏁</h1>
-  </div>
-</div>
-<div class="container mx-auto px-4 pl-2">
-  {#await promise}
-    <div class="flex justify-center">
-      <div class="loader"></div>
-    </div>
-  {:then data}
-    {#if data !== undefined}
-      {#if data.ip !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
-          List of IP records:
-        </h2>
-        <ul class="list-none mb-6 list-inside">
-          {#each data.ip as ip}
-            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ip}</pre>
-          {/each}
-        </ul>
-      {/if}
-
-      {#if data.ns !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
-          List of NS records:
-        </h2>
-        <ul class="list-none mb-6 list-inside">
-          {#each data.ns as ns}
-            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{ns}</pre>
-          {/each}
-        </ul>
-      {/if}
-
-      {#if data.hostname !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">Hostname:</h2>
-        <ul class="list-none mb-6 list-inside">
-          <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3">{data.hostname}</pre>
-        </ul>
-      {/if}
-
-      {#if data.txt !== undefined}
-        <h2 class="font-sans text-xl text-green-600 font-bold mb-2">
-          List of TXT records:
-        </h2>
-        <ul class="list-none mb-6 list-inside">
-          {#each data.txt as txt}
-            <pre class="whitespace-normal bg-gray-200 overflow-x-auto p-3 mb-3 text-xs">{txt}</pre>
-          {/each}
-        </ul>
-      {/if}
-    {/if}
-  {:catch error}
-    <p style="color: red">{error.message}</p>
-  {/await}
-</div>
