@@ -1,0 +1,41 @@
+sudo: required
+
+language: go
+go:
+- '1.13'
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_b7f84c484c53_key -iv $encrypted_b7f84c484c53_iv -in deploy_rsa.enc -out deploy_rsa -d
+
+- eval "$(ssh-agent -s)"
+- chmod 600 ./deploy_rsa
+- echo -e "Host $SERVER_IP\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- ssh-add ./deploy_rsa
+
+services:
+- docker
+
+branches:
+  only:
+  - master
+
+git:
+  submodules: false
+
+script:
+  - export REPO=edintc/checq-api
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f api/Dockerfile -t $REPO:$TAG api/.
+  - docker tag $REPO:$TAG $REPO:travis-$TRAVIS_BUILD_NUMBER
+
+after_success:
+- if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin ;
+    docker push $REPO ;
+  fi
+
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh $SERVER_USER $SERVER_IP
+  on:
+    branch: master
