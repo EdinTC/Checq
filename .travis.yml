@@ -33,8 +33,9 @@ after_success:
     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin ;
     docker push $REPO ;
   fi
-- ssh -i ./deploy_rsa $SERVER_USER@$SERVER_IP cd checq/
-- git fetch && git pull
-- docker-compose pull
-- docker-compose down
-- docker-compose up -d
+
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh $SERVER_USER $SERVER_IP
+  on:
+    branch: master
