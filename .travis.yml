@@ -8,6 +8,11 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_b7f84c484c53_key -iv $encrypted_b7f84c484c53_iv
   -in deploy_rsa.enc -out deploy_rsa -d
 
+- eval "$(ssh-agent -s)"
+- chmod 600 ./deploy_rsa
+- echo -e "Host $SERVER_IP\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- ssh-add ./deploy_rsa
+
 services:
 - docker
 
@@ -29,3 +34,8 @@ after_success:
     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin ;
     docker push $REPO ;
   fi
+- ssh -i ./deploy_rsa $SERVER_USER@$SERVER_IP cd checq/
+- git fetch && git pull
+- docker-compose pull
+- docker-compose down
+- docker-compose up -d

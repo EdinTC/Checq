@@ -13,3 +13,5 @@
 
 api/tmp
 traefik.toml
+deploy_rsa
+deploy_rsa.pub
