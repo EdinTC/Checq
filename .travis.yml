@@ -11,6 +11,9 @@ env:
   global:
     - COMMIT=${TRAVIS_COMMIT::8}
 
+git:
+  submodules: false
+
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=edintc/checq-api
