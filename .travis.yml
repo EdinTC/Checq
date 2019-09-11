@@ -20,10 +20,13 @@ git:
   submodules: false
 
 script:
-  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - export REPO=edintc/checq-api
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -f api/Dockerfile -t $REPO:$COMMIT api/.
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+  - docker build -f api/Dockerfile -t $REPO:$TAG api/.
+  - docker tag $REPO:travis-$TRAVIS_BUILD_NUMBER
+
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin ;
+      docker push $REPO ;
+    fi
