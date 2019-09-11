@@ -12,10 +12,6 @@ branches:
   only:
     - master
 
-env:
-  global:
-    - COMMIT=${TRAVIS_COMMIT::8}
-
 git:
   submodules: false
 
@@ -23,7 +19,7 @@ script:
   - export REPO=edintc/checq-api
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -f api/Dockerfile -t $REPO:$TAG api/.
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker tag $REPO:$TAG $REPO:travis-$TRAVIS_BUILD_NUMBER
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
