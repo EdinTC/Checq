@@ -36,6 +36,6 @@ after_success:
 
 deploy:
   provider: script
-  script: bash scripts/deploy.sh $SERVER_USER $SERVER_IP
+  script: ssh -i ./deploy_rsa $SERVER_USER@$SERVER_IP 'bash -s' < ./scripts/deploy.sh
   on:
     branch: master
