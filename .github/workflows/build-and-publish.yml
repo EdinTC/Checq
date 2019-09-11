@@ -17,14 +17,7 @@ jobs:
     - name: B) Display docker image tags
       run: |
         echo "Our tag is:"
-        #
         echo $(cat TAG_API_LATEST)
 
     - name: C) Build the images
       run: docker build -f api/Dockerfile --tag $(cat TAG_API_LATEST) api/.
-
-
-    - name: D) Push docker images to registry
-      run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }}
-        docker push $(cat TAG_API_LATEST)
