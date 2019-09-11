@@ -19,7 +19,7 @@ env:
 git:
   submodules: false
 
-after_success:
+script:
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - export REPO=edintc/checq-api
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
