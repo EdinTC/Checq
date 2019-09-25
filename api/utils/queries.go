@@ -13,7 +13,7 @@ func GetIPAdress(name string) []string {
 
 	var results []string
 	for _, ip := range res {
-		if !stringInSlice(ip.String(), results) {
+		if !StringInSlice(ip.String(), results) {
 			results = append(results, ip.String())
 		}
 	}
@@ -32,7 +32,7 @@ func QueryIPAdress(name string) []string {
 
 	var results []string
 	for _, ip := range res {
-		if !stringInSlice(ip.String(), results) {
+		if !StringInSlice(ip.String(), results) {
 			results = append(results, ip.String())
 		}
 	}
@@ -53,7 +53,7 @@ func QueryTXT(name string) []string {
 
 	var results []string
 	for _, value := range res {
-		if !stringInSlice(value, results) {
+		if !StringInSlice(value, results) {
 			results = append(results, value)
 		}
 	}
@@ -69,8 +69,6 @@ func QueryTXT(name string) []string {
 //
 func QueryNS(name string) []string {
 	name = strings.TrimLeft(name, "www.")
-	// test := strings.Split(name, ".")
-	// fmt.Println(test)
 	res, err := net.LookupNS(name)
 
 	var results []string
@@ -81,7 +79,7 @@ func QueryNS(name string) []string {
 	if err == nil {
 		return results
 	}
-	return nil
+	return []string{}
 }
 
 //

@@ -1,13 +1,32 @@
 package utils
 
+import (
+	"fmt"
+	"net/url"
+)
+
 //
-// This functions checks if the string is already in the list
+// StringInSlice checks if the string is already in the list
 //
-func stringInSlice(str string, list []string) bool {
+func StringInSlice(str string, list []string) bool {
 	for _, v := range list {
 		if v == str {
 			return true
 		}
 	}
 	return false
+}
+
+//
+// ExtractDomain returns the hostname from given url
+//
+func ExtractDomain(requestURL string) string {
+	u, err := url.Parse(requestURL)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(u.Scheme)
+	fmt.Println(u.Host)
+
+	return ""
 }

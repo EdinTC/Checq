@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/EdinTC/Checq/api/utils"
@@ -25,6 +26,8 @@ type Response struct {
 //
 func QueryHandler(c *gin.Context) {
 	name := c.Param("name")
+	domain := utils.ExtractDomain(name)
+	fmt.Println(domain)
 	ip := utils.QueryIPAdress(name)
 	txt := utils.QueryTXT(name)
 	ns := utils.QueryNS(name)
