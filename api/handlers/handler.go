@@ -31,7 +31,7 @@ func QueryHandler(c *gin.Context) {
 	hn := utils.QueryHostname(name)
 
 	// TODO: Better error handling...
-	if ip != nil {
+	if ip != nil && txt != nil && ns != nil && hn != "" {
 		c.JSON(http.StatusOK, Response{
 			IP:       ip,
 			TXT:      txt,
@@ -39,6 +39,6 @@ func QueryHandler(c *gin.Context) {
 			Hostname: hn,
 		})
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": Response{}})
+		c.JSON(http.StatusOK, gin.H{"message": "No results found."})
 	}
 }
