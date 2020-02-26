@@ -1,7 +1,9 @@
 <h1 align="center">Welcome to Checq 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
-  <img alt="Build status" src="https://api.travis-ci.com/EdinTC/Checq.svg?branch=master" />
+  <a href="https://travis-ci.com/EdinTC/Checq">
+    <img alt="Build status" src="https://api.travis-ci.com/EdinTC/Checq.svg?branch=master" />
+  </a>
   <a href="https://github.com/EdinTC/Checq/blob/master/LICENSE">
     <img alt="License: GPL-3.0" src="https://img.shields.io/badge/license-GPL-yellow.svg" target="_blank" />
   </a>
