@@ -1,0 +1,19 @@
+version = 1
+
+[[analyzers]]
+name = "go"
+enabled = true
+
+  [analyzers.meta]
+  import_paths = ["github.com/EdinTC/Checq"]
+
+[[analyzers]]
+name = "docker"
+enabled = true
+
+  [analyzers.meta]
+  dockerfile_paths = ["./api/Dockerfile"]
+
+[[transformers]]
+name = "gofmt"
+enabled = true
