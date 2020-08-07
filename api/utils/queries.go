@@ -48,7 +48,7 @@ func QueryIPAdress(name string) []string {
 // When www is given as a subdomain it is removed
 //
 func QueryTXT(name string) []string {
-	name = strings.TrimLeft(name, "www.")
+	name = strings.TrimPrefix(name, "www.")
 	res, err := net.LookupTXT(name)
 
 	var results []string
@@ -68,7 +68,7 @@ func QueryTXT(name string) []string {
 // QueryNS queries the given domain name for nameserver records.
 //
 func QueryNS(name string) []string {
-	name = strings.TrimLeft(name, "www.")
+	name = strings.TrimPrefix(name, "www.")
 	// test := strings.Split(name, ".")
 	// fmt.Println(test)
 	res, err := net.LookupNS(name)
