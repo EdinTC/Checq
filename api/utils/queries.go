@@ -6,9 +6,9 @@ import (
 )
 
 //
-// GetIPAdress queries the given domain name for IP records
+// GetIPAddress queries the given domain name for IP records
 //
-func GetIPAdress(name string) []string {
+func GetIPAddress(name string) []string {
 	res, err := net.LookupIP(name)
 
 	var results []string
@@ -25,9 +25,9 @@ func GetIPAdress(name string) []string {
 }
 
 //
-// QueryIPAdress queries the given domain name for IP records
+// QueryIPAddress queries the given domain name for IP records
 //
-func QueryIPAdress(name string) []string {
+func QueryIPAddress(name string) []string {
 	res, err := net.LookupIP(name)
 
 	var results []string
@@ -88,7 +88,7 @@ func QueryNS(name string) []string {
 // QueryHostname queries the given domain name for nameserver records.
 //
 func QueryHostname(name string) string {
-	ip := QueryIPAdress(name)
+	ip := QueryIPAddress(name)
 	if ip != nil {
 		res, err := net.LookupAddr(ip[0])
 
@@ -97,5 +97,4 @@ func QueryHostname(name string) string {
 		}
 	}
 	return ""
-
 }
