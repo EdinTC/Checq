@@ -1,36 +1,30 @@
-LogLevel = "ERROR"
+[global]
+  checkNewVersion = true
 
-defaultEntryPoints = ["http", "https"]
+[log]
+  level = "ERROR"
+  filePath = "/logs/traefik.log"
+  format = "json"
 
 [entryPoints]
-  [entryPoints.dashboard]
-    address = ":8080"
-    [entryPoints.dashboard.auth]
-      [entryPoints.dashboard.auth.basic]
-        users = [""]
-  [entryPoints.http]
+  [entryPoints.web]
     address = ":80"
-      [entryPoints.http.redirect]
-        entryPoint = "https"
-  [entryPoints.https]
-    address = ":443"
-      [entryPoints.https.tls]
 
-[retry]
+  [entryPoints.web-secure]
+    address = ":443"
 
 [api]
-dashboard = true
-entrypoint="dashboard"
+  dashboard = true
 
-[acme]
-email = ""
-storage = "/acme.json"
-entryPoint = "https"
-onHostRule = true
-  [acme.httpChallenge]
-  entryPoint = "http"
+[providers.file]
+  directory = "/config"
 
-[docker]
-domain = ""
-watch = true
-network = "web"
+[providers.docker]
+  network = "web"
+
+[certificatesResolvers.le.acme]
+  email = ""
+  storage = "/acme.json"
+  [certificatesResolvers.le.acme.httpChallenge]
+    # used during the challenge
+    entryPoint = "web"

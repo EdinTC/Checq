@@ -1,0 +1,22 @@
+[http.routers.api]
+  rule = "Host(`traefik.checq.intercube.io`)"
+  entrypoints = ["web", "web-secure"]
+  service = "api@internal"
+  middlewares = ["https-only", "myAuth"]
+
+  [http.routers.api.tls]
+    certResolver = "le"
+
+[tls.options]
+
+  [tls.options.default]
+    minVersion = "VersionTLS12"
+
+[http.middlewares]
+
+  [http.middlewares.https-only.redirectScheme]
+    scheme = "https"
+    permanent = true
+
+  [http.middlewares.myAuth.basicAuth]
+  #  users = ["user:password"]
