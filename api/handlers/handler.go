@@ -25,7 +25,7 @@ type Response struct {
 //
 func QueryHandler(c *gin.Context) {
 	name := c.Param("name")
-	ip := utils.QueryIPAdress(name)
+	ip := utils.QueryIPAddress(name)
 	txt := utils.QueryTXT(name)
 	ns := utils.QueryNS(name)
 	hn := utils.QueryHostname(name)
