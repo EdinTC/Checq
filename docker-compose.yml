@@ -8,8 +8,8 @@ networks:
 
 services:
   traefik:
-    image: traefik:1.7
-    restart: always
+    image: traefik:2.2.8
+    restart: unless-stopped
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./.docker/traefik.toml:/traefik.toml"
@@ -17,28 +17,23 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     networks:
       - web
-    labels:
-      - traefik.frontend.rule=Host:traefik.checq.intercube.io
-      - traefik.port=8080
 
   api:
     image: edintc/checq-api:latest
     restart: always
     volumes:
       - ./api:/go/src/github.com/EdinTC/Checq/api
-    ports:
-      - "1337:1337"
     networks:
       - internal
       - web
     labels:
-      - traefik.backend=API
-      - traefik.frontend.rule=Host:api.checq.intercube.io
-      - traefik.docker.network=web
-      - traefik.port=1337
+      - "traefik.http.routers.checq-api.rule=Host(`api.checq.intercube.io`)"
+      - "traefik.http.routers.checq-api.tls=true"
+      - "traefik.http.routers.checq-api.tls.certresolver=le"
+      - "traefik.http.routers.checq-api.middlewares=https-only@file"
+      - "traefik.http.services.checq-api.loadbalancer.server.port=1337"
 
   frontend:
     image: edintc/checq-frontend:latest
@@ -49,7 +44,8 @@ services:
       - internal
       - web
     labels:
-      - traefik.backend=Frontend
-      - traefik.frontend.rule=Host:checq.intercube.io
-      - traefik.docker.network=web
-      - traefik.port=80
+      - "traefik.http.routers.checq-api.rule=Host(`checq.intercube.io`)"
+      - "traefik.http.routers.checq-api.tls=true"
+      - "traefik.http.routers.checq-api.tls.certresolver=le"
+      - "traefik.http.routers.checq-api.middlewares=https-only@file"
+      - "traefik.http.services.checq-api.loadbalancer.server.port=80"
