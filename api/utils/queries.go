@@ -6,9 +6,9 @@ import (
 )
 
 //
-// GetIPAdress queries the given domain name for IP records
+// GetIPAddress queries the given domain name for IP records
 //
-func GetIPAdress(name string) []string {
+func GetIPAddress(name string) []string {
 	res, err := net.LookupIP(name)
 
 	var results []string
@@ -25,9 +25,9 @@ func GetIPAdress(name string) []string {
 }
 
 //
-// QueryIPAdress queries the given domain name for IP records
+// QueryIPAddress queries the given domain name for IP records
 //
-func QueryIPAdress(name string) []string {
+func QueryIPAddress(name string) []string {
 	res, err := net.LookupIP(name)
 
 	var results []string
@@ -48,7 +48,7 @@ func QueryIPAdress(name string) []string {
 // When www is given as a subdomain it is removed
 //
 func QueryTXT(name string) []string {
-	name = strings.TrimLeft(name, "www.")
+	name = TrimWWWDomain(name)
 	res, err := net.LookupTXT(name)
 
 	var results []string
@@ -68,7 +68,7 @@ func QueryTXT(name string) []string {
 // QueryNS queries the given domain name for nameserver records.
 //
 func QueryNS(name string) []string {
-	name = strings.TrimLeft(name, "www.")
+	name = TrimWWWDomain(name)
 	// test := strings.Split(name, ".")
 	// fmt.Println(test)
 	res, err := net.LookupNS(name)
@@ -88,7 +88,7 @@ func QueryNS(name string) []string {
 // QueryHostname queries the given domain name for nameserver records.
 //
 func QueryHostname(name string) string {
-	ip := QueryIPAdress(name)
+	ip := QueryIPAddress(name)
 	if ip != nil {
 		res, err := net.LookupAddr(ip[0])
 
@@ -97,5 +97,13 @@ func QueryHostname(name string) string {
 		}
 	}
 	return ""
+}
 
+//
+// TrimWWWDomain trims the given domain from the www. prefix
+//
+func TrimWWWDomain(name string) string {
+	name = strings.TrimPrefix(name, "www.")
+
+	return name
 }
