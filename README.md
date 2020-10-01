@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to Checq 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.2-blue.svg?cacheSeconds=2592000" />
   <a href="https://travis-ci.com/EdinTC/Checq">
     <img alt="Build status" src="https://api.travis-ci.com/EdinTC/Checq.svg?branch=master" />
   </a>
@@ -12,6 +12,9 @@
 > This API retrieves the IP and DNS information for the given Domain/IP. Written in Golang and Svelte
 
 ![Checq screenshot](screenshot.png)
+
+Visit the website at [checq.intercube.io](https://checq.intercube.io).<br />
+Or download the Google Chrome extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/checq/giaodihedambnlglofagflcddonafbje).
 
 ## Installation & Usage
 
@@ -36,5 +39,5 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2019 [EdinTC](https://github.com/EdinTC) & [Jensderond](https://github.com/Jensderond).<br />
+Copyright © 2020 [EdinTC](https://github.com/EdinTC) & [Jensderond](https://github.com/Jensderond).<br />
 This project is [GPL-3.0](https://github.com/EdinTC/Checq/blob/master/LICENSE) licensed.
