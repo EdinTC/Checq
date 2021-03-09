@@ -8,11 +8,12 @@ networks:
 
 services:
   traefik:
-    image: traefik:2.2.8
+    image: traefik:2.4.7
     restart: unless-stopped
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./.docker/traefik.toml:/traefik.toml"
+      - "./.docker/config/dynamic-conf.toml:/config/dynamic-conf.toml"
       - "./.docker/acme.json:/acme.json"
     ports:
       - "80:80"
